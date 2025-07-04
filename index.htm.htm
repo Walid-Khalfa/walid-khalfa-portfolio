@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walid Khalfa | Développeur Fullstack</title>
+    <meta name="description" content="Portfolio de Walid Khalfa, Développeur Fullstack MERN avec une expertise en CI/CD et automatisation QA.">
+    <meta name="author" content="Walid Khalfa">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jsPDF for CV Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Light mode variables */
+        :root {
+            --bg-color: #f4f5f7;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --accent-color: #14b8a6;
+            --secondary-text: #4b5563;
+        }
+        /* Dark mode variables */
+        html.dark {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --card-bg: #1f2937;
+            --header-bg: rgba(31, 41, 55, 0.8);
+            --accent-color: #14b8a6;
+            --secondary-text: #9ca3af;
+        }
+        /* Applying variables */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .bg-card { background-color: var(--card-bg); }
+        .text-secondary { color: var(--secondary-text); }
+        .bg-header { background-color: var(--header-bg); }
+        .accent-color { color: var(--accent-color); }
+        .border-accent { border-color: var(--accent-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .fill-accent { fill: var(--accent-color); }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        /* For the timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            left: -0.625rem;
+            top: 0;
+            background-color: var(--bg-color);
+            border: 4px solid var(--accent-color);
+        }
+
+        /* Animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-header backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold accent-color">WK</a>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="hover:accent-color transition-colors duration-300">Profil</a>
+                <a href="#skills" class="hover:accent-color transition-colors duration-300">Compétences</a>
+                <a href="#experience" class="hover:accent-color transition-colors duration-300">Expériences</a>
+                <a href="#projects" class="hover:accent-color transition-colors duration-300">Projets</a>
+                <a href="#contact" class="hover:accent-color transition-colors duration-300">Contact</a>
+            </nav>
+            <div class="flex items-center">
+                <button id="theme-toggle" class="mr-4 text-xl">
+                    <i class="fas fa-sun"></i>
+                </button>
+                 <button id="download-cv-btn" class="bg-accent text-white font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300 text-sm">
+                    Télécharger CV
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center pt-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                        Walid Khalfa
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6">
+                        <span class="accent-color">Développeur Fullstack MERN</span><br/>Expertise en CI/CD & Automatisation QA
+                    </h2>
+                    <p class="text-secondary mb-8 max-w-2xl">
+                        Passionné par la qualité logicielle, avec une double expertise en développement et en automatisation des tests (QA). J'excelle dans la conception d'API REST robustes et la création d'applications web performantes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-accent text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300">Me Contacter</a>
+                        <a href="https://github.com/Walid-Khalfa" target="_blank" class="bg-card font-bold py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                           <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="relative w-full max-w-sm mx-auto md:mx-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full blur-xl opacity-50"></div>
+                    <img src="https://placehold.co/400x400/1f2937/f9fafb?text=WK" alt="Walid Khalfa" class="relative w-full rounded-full border-4 border-accent shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12">À Propos de Moi</h2>
+            <div class="max-w-4xl mx-auto bg-card p-8 rounded-lg shadow-lg">
+                <p class="text-secondary leading-relaxed text-center">
+                    Développeur Fullstack MERN passionné par la qualité logicielle, avec une double expertise en développement et en automatisation des tests (QA). J'excelle dans la conception d'API REST robustes, la création d'applications web performantes et la mise en place de pipelines CI/CD pour garantir un code fiable et une livraison continue.
+                </p>
+                <div class="flex justify-center space-x-6 mt-8">
+                    <a href="mailto:khelfawalid@gmail.com" target="_blank" class="text-2xl hover:accent-color"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/walid-khalfa-41821513" target="_blank" class="text-2xl hover:accent-color"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Walid-Khalfa" target="_blank" class="text-2xl hover:accent-color"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12">Compétences Techniques</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Développement Web -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color">Développement Web</h3>
+                    <ul class="space-y-4">
+                        <li><p>JavaScript (ES6+), TypeScript</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div></div></li>
+                        <li><p>React.js, Redux, TailwindCSS</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div></div></li>
+                        <li><p>Node.js, Express.js</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div></div></li>
+                        <li><p>MongoDB, Mongoose</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 80%"></div></div></li>
+                        <li><p>HTML5, CSS3, Bootstrap</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 95%"></div></div></li>
+                    </ul>
+                </div>
+                <!-- Test & Qualité -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color">Test & Qualité</h3>
+                    <ul class="space-y-4">
+                        <li><p>Jest, Mocha, Selenium</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div></div></li>
+                        <li><p>Cypress, TestNG/PyTest</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 80%"></div></div></li>
+                        <li><p>Postman, Swagger</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 95%"></div></div></li>
+                        <li><p>Appium (Tests Mobiles)</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 70%"></div></div></li>
+                        <li><p>Data Exploration (Pandas, NumPy)</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 75%"></div></div></li>
+                    </ul>
+                </div>
+                <!-- CI/CD & Outils -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color">CI/CD & Outils</h3>
+                    <ul class="space-y-4">
+                        <li><p>Git, GitHub, GitHub Actions</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div></div></li>
+                        <li><p>Jenkins, Docker</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 80%"></div></div></li>
+                        <li><p>Linux (CLI, Bash)</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div></div></li>
+                        <li><p>Jira, TestRail</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div></div></li>
+                        <li><p>RESTful APIs, JSON, JWT</p><div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-accent h-2.5 rounded-full" style="width: 95%"></div></div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12">Parcours Professionnel</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative border-l-2 border-accent pl-8">
+                    <!-- Gomycode -->
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold">Développeur Fullstack JavaScript & QA</h3>
+                        <p class="font-semibold accent-color">Gomycode</p>
+                        <p class="text-sm text-secondary mb-2">Août 2024 - Présent</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1">
+                            <li>Développement de composants React.js et d'API sécurisées pour GoMyTeacher.</li>
+                            <li>Intégration d'un agent IA pour la génération de contenu pédagogique.</li>
+                            <li>Mise en place de tests E2E avec Selenium & Jest.</li>
+                            <li>Intégration continue avec GitHub Actions, optimisant le temps de test de 25%.</li>
+                        </ul>
+                    </div>
+                    <!-- Perfect Purity -->
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold">Développeur Fullstack Junior & QA</h3>
+                        <p class="font-semibold accent-color">Perfect Purity</p>
+                        <p class="text-sm text-secondary mb-2">Sep 2023 - Juil 2024</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1">
+                            <li>Conception d'APIs RESTful avec Express.js et d'interfaces en React.js.</li>
+                            <li>Intégration d'un système d'authentification avec JWT.</li>
+                            <li>Tests unitaires et d'intégration avec Jest et Postman.</li>
+                            <li>Intégration des tests dans une pipeline CI/CD avec Jenkins et GitHub Actions.</li>
+                        </ul>
+                    </div>
+                    <!-- TechnoGM -->
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold">Stage QA & Développement Web</h3>
+                        <p class="font-semibold accent-color">TechnoGM</p>
+                        <p class="text-sm text-secondary mb-2">Juin 2023 - Sep 2023</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1">
+                            <li>Correction de bugs front-end et amélioration de la réactivité.</li>
+                            <li>Conception et test de procédures de test fonctionnel.</li>
+                        </ul>
+                    </div>
+                    <!-- Teleperformance -->
+                     <div class="timeline-item">
+                        <h3 class="text-xl font-bold">Ingénieur Support Applicatif</h3>
+                        <p class="font-semibold accent-color">Teleperformance Tunisie</p>
+                        <p class="text-sm text-secondary mb-2">Nov 2012 - Juin 2023</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1">
+                            <li>Résolution d'incidents techniques (niveau L2/L3).</li>
+                            <li>Développement de scripts Python pour l'automatisation.</li>
+                            <li>Documentation de solutions et formation des collègues.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4">Projets Récents</h2>
+            <p class="text-center text-secondary mb-8 max-w-2xl mx-auto">Voici quelques projets sur lesquels j'ai travaillé, démontrant mes compétences en développement et en gestion de projet.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: GoMyTeacher -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group">
+                    <img src="https://placehold.co/600x400/111827/14b8a6?text=GoMyTeacher" alt="GoMyTeacher Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">GoMyTeacher</h3>
+                        <p class="text-secondary mb-4 text-sm">Plateforme de gestion pédagogique MERN avec API sécurisées et génération de contenu IA.</p>
+                        <a href="https://gomyteacher.com" target="_blank" class="font-semibold accent-color hover:underline">Voir le projet <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 2: Easy Dashboard -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group">
+                    <img src="https://placehold.co/600x400/1f2937/f9fafb?text=EasyDashboard" alt="Easy Dashboard Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Easy Dashboard (CRM)</h3>
+                        <p class="text-secondary mb-4 text-sm">Application CRM complète en stack MERN avec authentification JWT et visualisation de données.</p>
+                        <a href="https://github.com/Walid-Khalfa/easy-dashboard" target="_blank" class="font-semibold accent-color hover:underline">Code source <i class="fab fa-github ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 3: Revenue Forecasting API -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group">
+                    <img src="https://placehold.co/600x400/14b8a6/111827?text=AI+Capstone" alt="IBM AI Capstone Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">IBM AI Capstone</h3>
+                        <p class="text-secondary mb-4 text-sm">API de prévision de revenus basée sur séries temporelles, modélisation ML et traitement de données.</p>
+                        <a href="https://github.com/Walid-Khalfa/AI-Enterprise-Workflow-Capstone" target="_blank" class="font-semibold accent-color hover:underline">Code source <i class="fab fa-github ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4">Entrons en contact</h2>
+            <p class="text-center text-secondary mb-8 max-w-2xl mx-auto">Je suis actuellement ouvert à de nouvelles opportunités. N'hésitez pas à me contacter via le formulaire ci-dessous ou directement par email.</p>
+            
+            <!-- IMPORTANT: Replace "YOUR_FORM_ID" with your actual Formspree form ID -->
+            <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-xl mx-auto bg-card p-8 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 font-semibold">Nom</label>
+                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block mb-2 font-semibold">Email</label>
+                    <input type="email" id="email" name="email" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block mb-2 font-semibold">Message</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-accent text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity duration-300 w-full">Envoyer le Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card mt-24">
+        <div class="container mx-auto px-6 py-6 text-center text-secondary">
+            <p>&copy; <span id="current-year"></span> Walid Khalfa. Tous droits réservés.</p>
+            <p class="text-sm">Conçu avec <i class="fas fa-heart text-red-500"></i> et codé avec <i class="fas fa-coffee"></i></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const { jsPDF } = window.jspdf;
+
+            // --- THEME TOGGLE ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const html = document.documentElement;
+
+            // Set initial theme based on localStorage or system preference
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                if (html.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // --- FADE-IN SECTIONS ON SCROLL ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // --- CV DOWNLOAD ---
+            const downloadCvBtn = document.getElementById('download-cv-btn');
+            downloadCvBtn.addEventListener('click', () => {
+                const doc = new jsPDF();
+                const margin = 15;
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const usableWidth = pageWidth - margin * 2;
+                let y = 20;
+
+                // Helper function to add text and handle y position
+                function addText(text, options, isTitle = false) {
+                    if (y > 280) { // Add new page if content overflows
+                        doc.addPage();
+                        y = 20;
+                    }
+                    if (isTitle) {
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(16);
+                    } else {
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(10);
+                    }
+                    const splitText = doc.splitTextToSize(text, usableWidth);
+                    doc.text(splitText, margin, y, options);
+                    y += (splitText.length * 5) + (isTitle ? 4 : 2); // Adjust spacing
+                }
+
+                // CV Content
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(22);
+                doc.text('Walid Khalfa', pageWidth / 2, y, { align: 'center' });
+                y += 8;
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(12);
+                doc.text('Développeur Fullstack MERN | Expertise en CI/CD & Automatisation QA', pageWidth / 2, y, { align: 'center' });
+                y += 5;
+                doc.text('khelfawalid@gmail.com | linkedin.com/in/walid-khalfa-41821513 | github.com/Walid-Khalfa', pageWidth / 2, y, { align: 'center' });
+                y += 15;
+
+                addText('Profil', {}, true);
+                addText("Développeur Fullstack MERN passionné par la qualité logicielle, avec une double expertise en développement et en automatisation des tests (QA). J'excelle dans la conception d'API REST robustes, la création d'applications web performantes et la mise en place de pipelines CI/CD pour garantir un code fiable et une livraison continue.");
+                y += 5;
+                
+                addText('Expériences Professionnelles', {}, true);
+                addText("Développeur Fullstack JavaScript & QA | Gomycode (Aout 2024 - Present)\n- Contribué au développement de GoMyTeacher, une plateforme de gestion pédagogique.\n- Développé des composants React.js et des API sécurisées en Express.js.\n- Intégré un agent IA de génération de contenu pédagogique.\n- Mise en place de tests E2E automatisés avec Selenium & Jest.");
+                y += 2;
+                addText("Développeur Fullstack Junior & QA | Perfect Purity (Sep 2023 - Juil 2024)\n- Conçu et développé des APIs RESTful avec Express.js.\n- Créé des interfaces utilisateur réactives en React.js avec Redux.\n- Intégré un système d'authentification avec JWT.\n- Intégré tous les tests dans une pipeline CI/CD avec Jenkins et GitHub Actions.");
+                y += 2;
+                addText("Ingénieur Support Applicatif | Teleperformance Tunisie (Nov 2012 - Juin 2023)\n- Résolu 98% des incidents techniques (niveau L2/L3).\n- Développé 15 scripts Python pour automatiser la génération de rapports.");
+                y += 5;
+
+                addText('Éducation & Formations', {}, true);
+                addText("Bootcamp Fullstack JavaScript - GoMyCode, Tunisie\n- Formation intensive axée sur le développement web moderne avec le MERN Stack.");
+                addText("Master spécialisé en Sécurité des Systèmes d'Information et des Réseaux - ISI, Tunis");
+                addText("Maîtrise en informatique appliquée à la gestion - FSEGJ, Jendouba");
+                y += 5;
+
+                addText('Compétences', {}, true);
+                addText("Développement Web: JavaScript (ES6+), TypeScript, React.js, Redux, Node.js, Express.js, MongoDB, HTML5, CSS3\nTest & Qualité: Jest, Mocha, Selenium, Cypress, Postman, Swagger\nCI/CD & Outils: Git, GitHub, GitHub Actions, Jenkins, Docker, Linux");
+                
+                doc.save('Walid_Khalfa_CV.pdf');
+            });
+
+            // --- FOOTER YEAR ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
