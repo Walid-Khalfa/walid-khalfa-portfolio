@@ -4,7 +4,7 @@
 
 Bienvenue sur le dépôt de mon portfolio personnel. Ce projet met en avant mon **parcours**, mes **compétences** techniques et mes **réalisations**, en tant que développeur Fullstack spécialisé MERN et passionné par l'automatisation QA.
 
-🔗 **[Voir le site en direct](#)**
+🔗 **[https://walid-khalfa.github.io/walid-khalfa-portfolio/](#)**
 *(Vous pouvez remplacer ce lien par une capture d’écran de votre site)*
 
 ---
