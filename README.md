@@ -1,3 +1,84 @@
-Portfolio de Walid Khalfa - Développeur Fullstack & QABienvenue sur le dépôt de mon portfolio personnel. Ce projet a été conçu pour présenter mon parcours, mes compétences et mes réalisations en tant que développeur Fullstack MERN avec une expertise en automatisation QA. Le site est entièrement responsive et intègre plusieurs fonctionnalités interactives pour offrir une expérience utilisateur engageante.➡️ Voir le site en direct(Vous pouvez remplacer ce lien par une capture d'écran de votre site)🚀 FonctionnalitésDesign Responsive : Une interface qui s'adapte parfaitement aux ordinateurs de bureau, tablettes et mobiles.Thème Sombre / Clair : Un interrupteur pour basculer entre un thème clair et un thème sombre, avec une sauvegarde de la préférence de l'utilisateur.Animations Fluides : Des animations CSS et JavaScript subtiles pour une navigation agréable.Timeline Interactive : Une présentation chronologique de mon expérience professionnelle.Visualisation des Compétences : Des barres de progression pour représenter visuellement mes compétences techniques.Téléchargement de CV Dynamique : Un bouton qui génère et télécharge une version PDF de mon CV en utilisant la bibliothèque jsPDF.Formulaire de Contact Fonctionnel : Un formulaire de contact prêt à l'emploi, intégré avec Formspree pour recevoir les messages directement par e-mail.🛠️ Technologies UtiliséesCe projet a été construit avec des technologies web fondamentales, sans dépendre de frameworks JavaScript complexes, afin de démontrer une maîtrise solide des bases.HTML5 : Structure sémantique et accessible.CSS3 :Tailwind CSS : Pour un développement rapide et un design moderne.Flexbox & Grid : Pour des mises en page complexes et responsives.JavaScript (Vanilla) :Manipulation du DOM pour l'interactivité.Gestion des événements.Utilisation de localStorage pour sauvegarder les préférences de l'utilisateur.jsPDF : Pour la génération de PDF côté client.Font Awesome : Pour les icônes.Formspree : Pour la gestion du backend du formulaire de contact.⚙️ Installation et Lancement LocalPour explorer le code ou lancer le projet sur votre machine locale, suivez ces étapes simples :Clonez le dépôt :git clone https://github.com/Walid-Khalfa/walid-khalfa-portfolio.git
-Naviguez vers le dossier du projet :cd walid-khalfa-portfolio
-Ouvrez le fichier index.html dans votre navigateur web préféré.Et voilà, le site est opérationnel !📫 ContactJe suis toujours ouvert à de nouvelles opportunités et collaborations. N'hésitez pas à me contacter.Email : khelfawalid@gmail.comLinkedIn : linkedin.com/in/walid-khalfa-41821513
+# 💼 Portfolio de **Walid Khalfa**
+
+**Développeur Fullstack MERN & QA Automation**
+
+Bienvenue sur le dépôt de mon portfolio personnel. Ce projet met en avant mon **parcours**, mes **compétences** techniques et mes **réalisations**, en tant que développeur Fullstack spécialisé MERN et passionné par l'automatisation QA.
+
+🔗 **[Voir le site en direct](#)**
+*(Vous pouvez remplacer ce lien par une capture d’écran de votre site)*
+
+---
+
+## 🚀 Fonctionnalités
+
+* **🎨 Design Responsive**
+  Interface adaptative pour ordinateurs, tablettes et mobiles.
+
+* **🌃 Thème Sombre / Clair**
+  Interrupteur pour changer de thème avec sauvegarde via `localStorage`.
+
+* **🎮 Animations Fluides**
+  Transitions subtiles en CSS et JavaScript pour une navigation agréable.
+
+* **🗕️ Timeline Interactive**
+  Présentation chronologique de mon parcours professionnel.
+
+* **📊 Visualisation des Compétences**
+  Barres de progression illustrant mes compétences techniques.
+
+* **📄 Téléchargement de CV Dynamique**
+  Génération de CV en PDF via `jsPDF`.
+
+* **📬 Formulaire de Contact Fonctionnel**
+  Intégré avec **Formspree** pour réception directe par e-mail.
+
+---
+
+## 🛠️ Technologies Utilisées
+
+### Frontend
+
+* **HTML5** : Structure sémantique et accessible
+* **CSS3** :
+
+  * **Tailwind CSS** pour un design moderne et rapide à développer
+  * **Flexbox & CSS Grid** pour des mises en page adaptables
+* **JavaScript (Vanilla)** :
+
+  * Manipulation du DOM
+  * Gestion des événements
+  * `localStorage` pour les préférences utilisateur
+
+### Outils & Librairies
+
+* **jsPDF** : Génération de CV en PDF côté client
+* **Font Awesome** : Icônes vectorielles
+* **Formspree** : Backend pour le formulaire de contact
+
+---
+
+## ⚙️ Installation et Lancement Local
+
+1. **Clonez le dépôt** :
+
+   ```bash
+   git clone https://github.com/Walid-Khalfa/walid-khalfa-portfolio.git
+   ```
+
+2. **Accédez au dossier** :
+
+   ```bash
+   cd walid-khalfa-portfolio
+   ```
+
+3. **Ouvrez `index.html`** dans votre navigateur préféré.
+   Et voilà, le site est prêt à être exploré localement !
+
+---
+
+## 📩 Me Contacter
+
+Je suis toujours ouvert à de nouvelles opportunités et collaborations.
+
+* **📧 Email** : [khelfawalid@gmail.com](mailto:khelfawalid@gmail.com)
+* **💼 LinkedIn** : [linkedin.com/in/walid-khalfa-41821513](https://www.linkedin.com/in/walid-khalfa-41821513)
