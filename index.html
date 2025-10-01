@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walid Khalfa | AI Search Specialist</title>
+    <meta name="description" content="Portfolio de Walid Khalfa, AI Search Specialist avec expertise en NLP, Information Retrieval, Semantic Modeling et Generative AI.">
+    <meta name="author" content="Walid Khalfa">
+    <meta name="keywords" content="AI Search, NLP, Information Retrieval, Semantic Modeling, Generative AI, Elasticsearch, Vector Search, Embeddings, RAG, LangChain">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jsPDF for CV Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+
+    <style>
+        /* Custom Styles */
+        :root {
+            --font-primary: 'Poppins', sans-serif;
+        }
+        body {
+            font-family: var(--font-primary);
+        }
+
+        /* Light mode variables */
+        :root {
+            --bg-color: #f4f5f7;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --accent-color: #14b8a6;
+            --secondary-text: #4b5563;
+        }
+        /* Dark mode variables */
+        html.dark {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --card-bg: #1f2937;
+            --header-bg: rgba(31, 41, 55, 0.8);
+            --accent-color: #14b8a6;
+            --secondary-text: #9ca3af;
+        }
+        /* Applying variables */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .bg-card { background-color: var(--card-bg); }
+        .text-secondary { color: var(--secondary-text); }
+        .bg-header { background-color: var(--header-bg); }
+        .accent-color { color: var(--accent-color); }
+        .border-accent { border-color: var(--accent-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .fill-accent { fill: var(--accent-color); }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
+        
+        /* Timeline style */
+        .timeline-item::before {
+            content: ''; position: absolute; width: 1.25rem; height: 1.25rem;
+            border-radius: 50%; top: 0; background-color: var(--bg-color);
+            border: 4px solid var(--accent-color);
+            left: -0.625rem;
+        }
+
+        /* Animation for sections */
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* AI Search Badge */
+        .ai-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+            display: inline-block;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Metric Card */
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-header backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold accent-color">WK</a>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="hover:accent-color transition-colors duration-300" data-lang="nav_about">Profil</a>
+                <a href="#skills" class="hover:accent-color transition-colors duration-300" data-lang="nav_skills">Compétences</a>
+                <a href="#experience" class="hover:accent-color transition-colors duration-300" data-lang="nav_experience">Expériences</a>
+                <a href="#projects" class="hover:accent-color transition-colors duration-300" data-lang="nav_projects">Projets</a>
+                <a href="#certifications" class="hover:accent-color transition-colors duration-300" data-lang="nav_certifications">Certifications</a>
+                <a href="#contact" class="hover:accent-color transition-colors duration-300" data-lang="nav_contact">Contact</a>
+            </nav>
+            <div class="flex items-center">
+                <!-- Language Switcher -->
+                <div class="relative" id="lang-switcher">
+                    <button class="flex items-center focus:outline-none">
+                        <img id="current-lang-flag" src="https://flagcdn.com/w20/fr.png" alt="French Flag" class="w-5 h-5 rounded-full object-cover">
+                    </button>
+                    <div id="lang-menu" class="absolute right-0 mt-2 w-20 bg-card rounded-lg shadow-xl hidden">
+                        <a href="#" class="lang-option block px-4 py-2 text-sm" data-lang-id="fr">
+                            <img src="https://flagcdn.com/w20/fr.png" alt="French Flag" class="w-5 inline mr-2"> FR
+                        </a>
+                        <a href="#" class="lang-option block px-4 py-2 text-sm" data-lang-id="en">
+                            <img src="https://flagcdn.com/w20/gb.png" alt="English Flag" class="w-5 inline mr-2"> EN
+                        </a>
+                    </div>
+                </div>
+                
+                <button id="theme-toggle" class="mx-4 text-xl">
+                    <i class="fas fa-sun"></i>
+                </button>
+                 <button id="download-cv-btn" class="bg-accent text-white font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300 text-sm" data-lang="download_cv">
+                    Télécharger CV
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center pt-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight" data-lang="hero_name">
+                        Walid Khalfa
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6">
+                        <span class="accent-color" data-lang="hero_job_title">AI Search Specialist</span>
+                        <span class="ai-badge">NLP • IR • Semantic Modeling</span><br/>
+                        <span data-lang="hero_subtitle">Generative AI • RAG • Vector Search</span>
+                    </h2>
+                    <p class="text-secondary mb-8 max-w-2xl" data-lang="hero_desc">
+                        Spécialiste en recherche IA axé sur la récupération consciente de l'intention, la recherche sémantique et l'UX pilotée par le NLP. Je fais le lien entre la réflexion UX, l'ingénierie MERN et l'automatisation ML/QA pour livrer des systèmes de recherche fiables et centrés sur l'humain.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-accent text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300" data-lang="contact_me">Me Contacter</a>
+                        <a href="https://github.com/Walid-Khalfa" target="_blank" class="bg-card font-bold py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                           <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/walid-khalfa-41821513" target="_blank" class="bg-card font-bold py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                           <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div class="relative w-full max-w-sm mx-auto md:mx-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full blur-xl opacity-50"></div>
+                    <img src="photo.png" alt="Walid Khalfa" class="relative w-full rounded-full border-4 border-accent shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang="about_title">À Propos de Moi</h2>
+            <div class="max-w-4xl mx-auto bg-card p-8 rounded-lg shadow-lg">
+                <p id="about-text" class="text-secondary leading-relaxed text-center" data-lang="about_desc">
+                    AI Search Specialist axé sur la récupération consciente de l'intention, la recherche sémantique et l'UX pilotée par le NLP. Je fais le lien entre la réflexion UX, l'ingénierie MERN et l'automatisation ML/QA pour livrer des systèmes de recherche fiables et centrés sur l'humain. Mon approche combine des techniques de pointe en NLP, en récupération d'informations et en modélisation sémantique pour créer des expériences de recherche qui comprennent véritablement l'intention de l'utilisateur.
+                </p>
+                
+                <div class="highlight-box">
+                    <h3 class="text-xl font-bold mb-4 accent-color">Réalisations Clés</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">-35%</div>
+                            <div class="text-sm text-secondary">Réduction de la création manuelle de contenu</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">↑ nDCG/MRR</div>
+                            <div class="text-sm text-secondary">Amélioration de la pertinence IR</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">↓ p95 latency</div>
+                            <div class="text-sm text-secondary">Optimisation des performances</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-6">
+                    <button id="generate-bio-btn" class="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors duration-300 text-sm">
+                        <span data-lang="generate_bio">✨ Générer une bio créative</span>
+                        <div id="bio-loader" class="loader hidden inline-block ml-2"></div>
+                    </button>
+                </div>
+                <div class="flex justify-center space-x-6 mt-8">
+                    <a href="mailto:khelfawalid@gmail.com" target="_blank" class="text-2xl hover:accent-color"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/walid-khalfa-41821513" target="_blank" class="text-2xl hover:accent-color"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Walid-Khalfa" target="_blank" class="text-2xl hover:accent-color"><i class="fab fa-github"></i></a>
+                    <a href="https://walid-khalfa.github.io/walid-khalfa-portfolio" target="_blank" class="text-2xl hover:accent-color"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang="skills_title">Compétences Techniques</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Core Expertise -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color" data-lang="skills_core_expertise">Expertise Principale</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> NLP</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Semantic Search</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Information Retrieval</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Ranking Algorithms</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Retrieval QA</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Vector Search</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Embeddings</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Knowledge Graphs</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Generative AI</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Prompt/Agent Flows</li>
+                    </ul>
+                </div>
+                <!-- Ecosystem & Tools -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color" data-lang="skills_ecosystem">Écosystème & Outils</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-database text-blue-500 mr-2"></i> Elasticsearch/BM25</li>
+                        <li class="flex items-center"><i class="fas fa-database text-blue-500 mr-2"></i> OpenSearch</li>
+                        <li class="flex items-center"><i class="fas fa-database text-blue-500 mr-2"></i> FAISS</li>
+                        <li class="flex items-center"><i class="fas fa-database text-blue-500 mr-2"></i> Milvus</li>
+                        <li class="flex items-center"><i class="fas fa-database text-blue-500 mr-2"></i> Pinecone</li>
+                        <li class="flex items-center"><i class="fas fa-brain text-purple-500 mr-2"></i> Transformers (HuggingFace)</li>
+                        <li class="flex items-center"><i class="fas fa-brain text-purple-500 mr-2"></i> LangChain</li>
+                        <li class="flex items-center"><i class="fas fa-brain text-purple-500 mr-2"></i> LlamaIndex</li>
+                        <li class="flex items-center"><i class="fas fa-brain text-purple-500 mr-2"></i> RAG</li>
+                        <li class="flex items-center"><i class="fas fa-brain text-purple-500 mr-2"></i> Cross-Encoder/ColBERT</li>
+                    </ul>
+                </div>
+                <!-- Retrieval & Eval -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color" data-lang="skills_retrieval">Retrieval & Évaluation</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-cog text-gray-500 mr-2"></i> ANN (HNSW)</li>
+                        <li class="flex items-center"><i class="fas fa-cog text-gray-500 mr-2"></i> Schema Design</li>
+                        <li class="flex items-center"><i class="fas fa-cog text-gray-500 mr-2"></i> Facets/Filters</li>
+                        <li class="flex items-center"><i class="fas fa-cog text-gray-500 mr-2"></i> Hybrid BM25 + Dense</li>
+                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-2"></i> Precision/Recall</li>
+                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-2"></i> nDCG@k</li>
+                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-2"></i> MRR</li>
+                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-2"></i> Latency Monitoring</li>
+                    </ul>
+                </div>
+                <!-- Technical Stack -->
+                <div class="bg-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 accent-color" data-lang="skills_tech_stack">Stack Technique</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> MERN Stack</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> REST/JSON</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> JWT</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> CI/CD (GitHub Actions)</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> Jenkins</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> Docker</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> Linux</li>
+                        <li class="flex items-center"><i class="fas fa-code text-orange-500 mr-2"></i> Telemetry/Observability</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang="experience_title">Parcours Professionnel</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative border-l-2 border-accent pl-8">
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold" data-lang="exp1_title">QA Analyst Intern — AI Search Specialist</h3>
+                        <p class="font-semibold accent-color" data-lang="exp1_company">RefOps Solutions</p>
+                        <p class="text-sm text-secondary mb-2" data-lang="exp1_date">Août 2025 – Présent | La Marsa, Tunisie</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1" data-lang="exp1_desc">
+                           <li>Conception de suites de tests pour la récupération IA et la validation d'intention à travers les domaines business/data/IT.</li>
+                           <li>Alignement du comportement de recherche sur les critères d'acceptation avec un focus sur la prévention des défauts.</li>
+                           <li>Enrichissement des signaux de qualité CI/CD pour les changements cloud/sécurité/IA.</li>
+                           <li>Suivi des métriques nDCG/MRR et de la latence.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold" data-lang="exp2_title">QA Tester (PIGIST Project)</h3>
+                        <p class="font-semibold accent-color" data-lang="exp2_company">Webchallenge</p>
+                        <p class="text-sm text-secondary mb-2" data-lang="exp2_date">Mars 2025 – Août 2025 | Québec, Canada</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1" data-lang="exp2_desc">
+                           <li>Tests fonctionnels et orientés récupération pour une marketplace de freelances.</li>
+                           <li>Optimisation du triage des défauts UX.</li>
+                           <li>Améliorations sémantiques pré-lancement pour le contenu et la navigation.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold" data-lang="exp3_title">Full-Stack Developer & QA</h3>
+                        <p class="font-semibold accent-color" data-lang="exp3_company">GOMYCODE</p>
+                        <p class="text-sm text-secondary mb-2" data-lang="exp3_date">Août 2024 – Mars 2025 | Tunis, Tunisie</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1" data-lang="exp3_desc">
+                           <li>Co-développement de GoMyTeacher (MERN) avec flux de génération de contenu sémantique.</li>
+                           <li>Réduction de 35% de l'effort manuel de production.</li>
+                           <li>Tests E2E cross-browser (Jest/Selenium) et automatisation CI/CD.</li>
+                           <li>Validation d'API (Joi/Swagger) et gouvernance de schéma JSON.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold" data-lang="exp4_title">Full-Stack Junior Developer & QA</h3>
+                        <p class="font-semibold accent-color" data-lang="exp4_company">Perfect Purity</p>
+                        <p class="text-sm text-secondary mb-2" data-lang="exp4_date">Sep 2023 – Août 2024 | Ariana, Tunisie</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1" data-lang="exp4_desc">
+                           <li>APIs REST et UIs React/Redux avec JWT.</li>
+                           <li>Protection de routes sécurisées.</li>
+                           <li>Pipelines Jenkins/Actions.</li>
+                           <li>Réduction de 50% des problèmes de production via les tests automatisés.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-bold" data-lang="exp5_title">Application Support Engineer</h3>
+                        <p class="font-semibold accent-color" data-lang="exp5_company">Teleperformance Tunisia</p>
+                        <p class="text-sm text-secondary mb-2" data-lang="exp5_date">Nov 2012 – Juin 2023 | Tunis, Tunisie</p>
+                        <ul class="list-disc pl-5 text-secondary space-y-1" data-lang="exp5_desc">
+                           <li>Résolution de 98% des incidents au premier contact (200+ clients/mois).</li>
+                           <li>Augmentation de 25% de la satisfaction.</li>
+                           <li>Automatisations Python pour les rapports/analyse de logs.</li>
+                           <li>Fondations pour les diagnostics de recherche.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4" data-lang="projects_title">Projets Sélectionnés</h2>
+            <p class="text-center text-secondary mb-8 max-w-2xl mx-auto" data-lang="projects_desc">Voici quelques projets clés démontrant mon expertise en recherche IA et développement de systèmes intelligents.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: GoMyTeacher -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group flex flex-col">
+                    <img src="https://placehold.co/600x400/111827/14b8a6?text=GoMyTeacher" alt="GoMyTeacher Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2" data-lang="proj1_title">GoMyTeacher — AI Education Platform</h3>
+                        <p class="text-secondary mb-4 text-sm flex-grow" data-lang="proj1_desc">Plateforme éducative avec génération de contenu sémantique utilisant n8n + Deepseek R1, réduisant l'effort manuel de 35%.</p>
+                        <div class="flex items-center space-x-2 mt-4 mb-4">
+                            <img src="https://img.icons8.com/color/48/react-native.png" alt="React" title="React" class="w-6 h-6">
+                            <img src="https://img.icons8.com/color/48/nodejs.png" alt="Node.js" title="Node.js" class="w-6 h-6">
+                            <img src="https://img.icons8.com/color/48/elasticsearch.png" alt="Elasticsearch" title="Elasticsearch" class="w-6 h-6">
+                        </div>
+                        <a href="https://gomyteacher.com" target="_blank" class="font-semibold accent-color hover:underline" data-lang="view_project">Voir le projet <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 2: IBM AI Capstone -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group flex flex-col">
+                    <img src="https://placehold.co/600x400/14b8a6/111827?text=AI+Capstone" alt="IBM AI Capstone Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2" data-lang="proj2_title">IBM AI Capstone — Revenue Forecasting</h3>
+                        <p class="text-secondary mb-4 text-sm flex-grow" data-lang="proj2_desc">API de prévision de revenus basée sur séries temporelles avec modélisation ML et exposition REST pour dashboards.</p>
+                        <div class="flex items-center space-x-2 mt-4 mb-4">
+                            <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python" class="w-6 h-6">
+                            <img src="https://img.icons8.com/fluency/48/brain.png" alt="AI" title="AI" class="w-6 h-6">
+                            <img src="https://img.icons8.com/color/48/flask.png" alt="Flask" title="Flask" class="w-6 h-6">
+                        </div>
+                        <a href="https://github.com/Walid-Khalfa/AI-Enterprise-Workflow-Capstone" target="_blank" class="font-semibold accent-color hover:underline" data-lang="source_code">Code source <i class="fab fa-github ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Project 3: Easy Dashboard -->
+                <div class="bg-card rounded-lg shadow-lg overflow-hidden group flex flex-col">
+                    <img src="https://placehold.co/600x400/1f2937/f9fafb?text=EasyDashboard" alt="Easy Dashboard Project" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2" data-lang="proj3_title">Easy Dashboard (MERN CRM)</h3>
+                        <p class="text-secondary mb-4 text-sm flex-grow" data-lang="proj3_desc">CRM avec visualisation de données et système de récupération optimisé pour des décisions plus rapides.</p>
+                        <div class="flex items-center space-x-2 mt-4 mb-4">
+                            <img src="https://img.icons8.com/color/48/react-native.png" alt="React" title="React" class="w-6 h-6">
+                            <img src="https://img.icons8.com/color/48/nodejs.png" alt="Node.js" title="Node.js" class="w-6 h-6">
+                            <img src="https://img.icons8.com/color/48/mongodb.png" alt="MongoDB" title="MongoDB" class="w-6 h-6">
+                        </div>
+                        <a href="https://github.com/Walid-Khalfa/easy-dashboard" target="_blank" class="font-semibold accent-color hover:underline" data-lang="source_code">Code source <i class="fab fa-github ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang="publications_title">Publications & Communauté</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-card p-8 rounded-lg shadow-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 accent-color">Publications</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-file-alt text-purple-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <div class="font-semibold">"Designing Intent-Aware Search Systems"</div>
+                                        <div class="text-sm text-secondary">Whitepaper interne sur la modélisation sémantique (2024)</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-newspaper text-purple-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <div class="font-semibold">Articles techniques</div>
+                                        <div class="text-sm text-secondary">NLP, vector search, et récupération générative</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 accent-color">Workshops & Open Source</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chalkboard-teacher text-purple-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <div class="font-semibold">Workshops sur l'évaluation</div>
+                                        <div class="text-sm text-secondary">Precision/recall, MRR, nDCG et modèles vectoriels</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fab fa-github text-purple-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <div class="font-semibold">Contributions Open Source</div>
+                                        <div class="text-sm text-secondary">Frameworks QA Selenium et utilitaires de benchmarking de récupération</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang="certifications_title">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                 <!-- Cert 1: Meta Full-Stack Engineer -->
+                <a href="https://www.credly.com/badges/1e2fb788-c44b-4c7e-8add-f89045064815/linked_in_profile" target="_blank" class="bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center space-x-4">
+                    <img src="https://img.icons8.com/fluency/48/meta.png" alt="Meta Logo" class="w-16 h-16 flex-shrink-0 object-contain">
+                    <div>
+                        <h3 class="font-bold text-sm" data-lang="cert1_title">Meta Full-Stack Engineer Certificate</h3>
+                        <p class="text-xs text-accent" data-lang="view_credential">Voir le credential</p>
+                    </div>
+                </a>
+                <!-- Cert 2: Azure AI Fundamentals -->
+                <a href="https://www.credly.com/badges/035e196c-f52a-48fd-a4c1-304be143a2e7/linked_in_profile" target="_blank" class="bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center space-x-4">
+                    <img src="https://img.icons8.com/color/48/microsoft.png" alt="Microsoft Logo" class="w-16 h-16 flex-shrink-0 object-contain">
+                    <div>
+                        <h3 class="font-bold text-sm" data-lang="cert2_title">Microsoft Certified: Azure AI Fundamentals</h3>
+                        <p class="text-xs text-accent" data-lang="view_credential">Voir le credential</p>
+                    </div>
+                </a>
+                <!-- Cert 3: Azure Data Fundamentals -->
+                <a href="https://www.credly.com/badges/6a7e983e-39c8-4739-901d-e72e22fa8030/linked_in_profile" target="_blank" class="bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center space-x-4">
+                    <img src="https://img.icons8.com/color/48/microsoft.png" alt="Microsoft Logo" class="w-16 h-16 flex-shrink-0 object-contain">
+                    <div>
+                        <h3 class="font-bold text-sm" data-lang="cert3_title">Microsoft Certified: Azure Data Fundamentals</h3>
+                        <p class="text-xs text-accent" data-lang="view_credential">Voir le credential</p>
+                    </div>
+                </a>
+                <!-- Cert 4: Oracle Certified Professional -->
+                <a href="https://www.credly.com/badges/07b36b7a-402c-49f7-ae67-7e62d5636e1e/linked_in_profile" target="_blank" class="bg-card p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center space-x-4">
+                    <img src="https://img.icons8.com/color/48/oracle-logo.png" alt="Oracle Logo" class="w-16 h-16 flex-shrink-0 object-contain">
+                    <div>
+                        <h3 class="font-bold text-sm" data-lang="cert4_title">Oracle Certified Professional, Java SE 5/6</h3>
+                        <p class="text-xs text-accent" data-lang="view_credential">Voir le credential</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4" data-lang="contact_title">Entrons en contact</h2>
+            <p class="text-center text-secondary mb-8 max-w-2xl mx-auto" data-lang="contact_desc">Je suis actuellement ouvert à de nouvelles opportunités dans le domaine des technologies de recherche IA. N'hésitez pas à me contacter via le formulaire ci-dessous ou directement par email.</p>
+            
+            <form id="contact-form" action="https://formspree.io/f/xjkrdyvp" method="POST" class="max-w-xl mx-auto bg-card p-8 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 font-semibold" data-lang="form_name">Nom</label>
+                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block mb-2 font-semibold" data-lang="form_email">Email</label>
+                    <input type="email" id="email" name="email" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block mb-2 font-semibold" data-lang="form_message">Message</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-color"></textarea>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-accent text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity duration-300" data-lang="form_send">Envoyer le Message</button>
+                    <button type="button" id="improve-message-btn" class="bg-gray-200 dark:bg-gray-700 text-sm font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300">
+                        <span data-lang="improve_message">✨ Améliorer avec l'IA</span>
+                        <div id="message-loader" class="loader hidden inline-block ml-2"></div>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card mt-24">
+        <div class="container mx-auto px-6 py-6 text-center text-secondary">
+            <p>&copy; <span id="current-year"></span> <span data-lang="footer_text">Walid Khalfa. Tous droits réservés.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+             // This must run before translations to avoid the element being null
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // --- TRANSLATION DATA ---
+            const translations = {
+                fr: {
+                    nav_about: "Profil", nav_skills: "Compétences", nav_experience: "Expériences", nav_projects: "Projets", nav_certifications: "Certifications", nav_contact: "Contact",
+                    download_cv: "Télécharger CV", hero_name: "Walid Khalfa", hero_job_title: "AI Search Specialist", hero_subtitle: "Generative AI • RAG • Vector Search",
+                    hero_desc: "Spécialiste en recherche IA axé sur la récupération consciente de l'intention, la recherche sémantique et l'UX pilotée par le NLP. Je fais le lien entre la réflexion UX, l'ingénierie MERN et l'automatisation ML/QA pour livrer des systèmes de recherche fiables et centrés sur l'humain.",
+                    contact_me: "Me Contacter", about_title: "À Propos de Moi",
+                    about_desc: "AI Search Specialist axé sur la récupération consciente de l'intention, la recherche sémantique et l'UX pilotée par le NLP. Je fais le lien entre la réflexion UX, l'ingénierie MERN et l'automatisation ML/QA pour livrer des systèmes de recherche fiables et centrés sur l'humain. Mon approche combine des techniques de pointe en NLP, en récupération d'informations et en modélisation sémantique pour créer des expériences de recherche qui comprennent véritablement l'intention de l'utilisateur.",
+                    skills_title: "Compétences Techniques", skills_core_expertise: "Expertise Principale", skills_ecosystem: "Écosystème & Outils", 
+                    skills_retrieval: "Retrieval & Évaluation", skills_tech_stack: "Stack Technique",
+                    experience_title: "Parcours Professionnel",
+                    exp1_title: "QA Analyst Intern — AI Search Specialist", exp1_company: "RefOps Solutions", exp1_date: "Août 2025 – Présent | La Marsa, Tunisie",
+                    exp1_desc: "<li>Conception de suites de tests pour la récupération IA et la validation d'intention à travers les domaines business/data/IT.</li><li>Alignement du comportement de recherche sur les critères d'acceptation avec un focus sur la prévention des défauts.</li><li>Enrichissement des signaux de qualité CI/CD pour les changements cloud/sécurité/IA.</li><li>Suivi des métriques nDCG/MRR et de la latence.</li>",
+                    exp2_title: "QA Tester (PIGIST Project)", exp2_company: "Webchallenge", exp2_date: "Mars 2025 – Août 2025 | Québec, Canada",
+                    exp2_desc: "<li>Tests fonctionnels et orientés récupération pour une marketplace de freelances.</li><li>Optimisation du triage des défauts UX.</li><li>Améliorations sémantiques pré-lancement pour le contenu et la navigation.</li>",
+                    exp3_title: "Full-Stack Developer & QA", exp3_company: "GOMYCODE", exp3_date: "Août 2024 – Mars 2025 | Tunis, Tunisie",
+                    exp3_desc: "<li>Co-développement de GoMyTeacher (MERN) avec flux de génération de contenu sémantique.</li><li>Réduction de 35% de l'effort manuel de production.</li><li>Tests E2E cross-browser (Jest/Selenium) et automatisation CI/CD.</li><li>Validation d'API (Joi/Swagger) et gouvernance de schéma JSON.</li>",
+                    exp4_title: "Full-Stack Junior Developer & QA", exp4_company: "Perfect Purity", exp4_date: "Sep 2023 – Août 2024 | Ariana, Tunisie",
+                    exp4_desc: "<li>APIs REST et UIs React/Redux avec JWT.</li><li>Protection de routes sécurisées.</li><li>Pipelines Jenkins/Actions.</li><li>Réduction de 50% des problèmes de production via les tests automatisés.</li>",
+                    exp5_title: "Application Support Engineer", exp5_company: "Teleperformance Tunisia", exp5_date: "Nov 2012 – Juin 2023 | Tunis, Tunisie",
+                    exp5_desc: "<li>Résolution de 98% des incidents au premier contact (200+ clients/mois).</li><li>Augmentation de 25% de la satisfaction.</li><li>Automatisations Python pour les rapports/analyse de logs.</li><li>Fondations pour les diagnostics de recherche.</li>",
+                    projects_title: "Projets Sélectionnés", projects_desc: "Voici quelques projets clés démontrant mon expertise en recherche IA et développement de systèmes intelligents.",
+                    proj1_title: "GoMyTeacher — AI Education Platform", proj1_desc: "Plateforme éducative avec génération de contenu sémantique utilisant n8n + Deepseek R1, réduisant l'effort manuel de 35%.",
+                    proj2_title: "IBM AI Capstone — Revenue Forecasting", proj2_desc: "API de prévision de revenus basée sur séries temporelles avec modélisation ML et exposition REST pour dashboards.",
+                    proj3_title: "Easy Dashboard (MERN CRM)", proj3_desc: "CRM avec visualisation de données et système de récupération optimisé pour des décisions plus rapides.",
+                    publications_title: "Publications & Communauté",
+                    certifications_title: "Certifications",
+                    cert1_title: "Meta Full-Stack Engineer Certificate",
+                    cert2_title: "Microsoft Certified: Azure AI Fundamentals",
+                    cert3_title: "Microsoft Certified: Azure Data Fundamentals",
+                    cert4_title: "Oracle Certified Professional, Java SE 5/6",
+                    view_credential: "Voir le credential",
+                    view_project: "Voir le projet", source_code: "Code source",
+                    contact_title: "Entrons en contact", contact_desc: "Je suis actuellement ouvert à de nouvelles opportunités dans le domaine des technologies de recherche IA. N'hésitez pas à me contacter via le formulaire ci-dessous ou directement par email.",
+                    form_name: "Nom", form_email: "Email", form_message: "Message", form_send: "Envoyer le Message",
+                    improve_message: "✨ Améliorer avec l'IA",
+                    generate_bio: "✨ Générer une bio créative",
+                    footer_text: "Walid Khalfa. Tous droits réservés."
+                },
+                en: {
+                    nav_about: "About", nav_skills: "Skills", nav_experience: "Experience", nav_projects: "Projects", nav_certifications: "Certifications", nav_contact: "Contact",
+                    download_cv: "Download CV", hero_name: "Walid Khalfa", hero_job_title: "AI Search Specialist", hero_subtitle: "Generative AI • RAG • Vector Search",
+                    hero_desc: "AI Search Specialist focused on intent-aware retrieval, semantic search, and NLP-driven UX. I bridge UX thinking, MERN engineering, and ML/QA automation to ship reliable, human-centered search systems.",
+                    contact_me: "Contact Me", about_title: "About Me",
+                    about_desc: "AI Search Specialist focused on intent-aware retrieval, semantic search, and NLP-driven UX. I bridge UX thinking, MERN engineering, and ML/QA automation to ship reliable, human-centered search systems. My approach combines cutting-edge NLP, information retrieval, and semantic modeling techniques to create search experiences that truly understand user intent.",
+                    skills_title: "Technical Skills", skills_core_expertise: "Core Expertise", skills_ecosystem: "Ecosystem & Tools", 
+                    skills_retrieval: "Retrieval & Evaluation", skills_tech_stack: "Technical Stack",
+                    experience_title: "Professional Journey",
+                    exp1_title: "QA Analyst Intern — AI Search Specialist", exp1_company: "RefOps Solutions", exp1_date: "Aug 2025 – Present | La Marsa, Tunisia",
+                    exp1_desc: "<li>Designed test suites for AI-enabled retrieval and intent validation across business/data/IT.</li><li>Aligned search behavior with acceptance criteria; defect prevention focus.</li><li>Enriched CI/CD quality signals for cloud/security/AI changes.</li><li>Tracked nDCG/MRR and latency metrics.</li>",
+                    exp2_title: "QA Tester (PIGIST Project)", exp2_company: "Webchallenge", exp2_date: "Mar 2025 – Aug 2025 | Quebec, Canada",
+                    exp2_desc: "<li>Functional and retrieval-oriented testing for a freelance marketplace.</li><li>Streamlined UX defect triage.</li><li>Pre-launch semantic improvements for content and navigation.</li>",
+                    exp3_title: "Full-Stack Developer & QA", exp3_company: "GOMYCODE", exp3_date: "Aug 2024 – Mar 2025 | Tunis, Tunisia",
+                    exp3_desc: "<li>Co-built GoMyTeacher (MERN) with semantic content generation flows.</li><li>Reduced manual authoring by 35%.</li><li>Cross-browser E2E testing (Jest/Selenium) and CI/CD automation.</li><li>API validation (Joi/Swagger) and JSON schema governance.</li>",
+                    exp4_title: "Full-Stack Junior Developer & QA", exp4_company: "Perfect Purity", exp4_date: "Sep 2023 – Aug 2024 | Ariana, Tunisia",
+                    exp4_desc: "<li>REST APIs and React/Redux UIs with JWT.</li><li>Secure route protection.</li><li>Jenkins/Actions pipelines.</li><li>-50% production issues via automated tests.</li>",
+                    exp5_title: "Application Support Engineer", exp5_company: "Teleperformance Tunisia", exp5_date: "Nov 2012 – Jun 2023 | Tunis, Tunisia",
+                    exp5_desc: "<li>Resolved 98% incidents at first contact (200+ clients/mo).</li><li>+25% satisfaction.</li><li>Python automations for reporting/log parsing.</li><li>Foundations for search diagnostics.</li>",
+                    projects_title: "Selected Projects", projects_desc: "Here are some key projects demonstrating my expertise in AI search and intelligent systems development.",
+                    proj1_title: "GoMyTeacher — AI Education Platform", proj1_desc: "Educational platform with semantic content generation using n8n + Deepseek R1, reducing manual effort by 35%.",
+                    proj2_title: "IBM AI Capstone — Revenue Forecasting", proj2_desc: "Revenue forecasting API based on time series with ML modeling and REST exposure for dashboards.",
+                    proj3_title: "Easy Dashboard (MERN CRM)", proj3_desc: "CRM with data visualization and optimized retrieval system for faster decision-making.",
+                    publications_title: "Publications & Community",
+                    certifications_title: "Certifications",
+                    cert1_title: "Meta Full-Stack Engineer Certificate",
+                    cert2_title: "Microsoft Certified: Azure AI Fundamentals",
+                    cert3_title: "Microsoft Certified: Azure Data Fundamentals",
+                    cert4_title: "Oracle Certified Professional, Java SE 5/6",
+                    view_credential: "View Credential",
+                    view_project: "View Project", source_code: "Source Code",
+                    contact_title: "Let's Get in Touch", contact_desc: "I am currently open to new opportunities in the field of AI search technologies. Feel free to contact me using the form below or directly by email.",
+                    form_name: "Name", form_email: "Email", form_message: "Message", form_send: "Send Message",
+                    improve_message: "✨ Improve with AI",
+                    generate_bio: "✨ Generate creative bio",
+                    footer_text: "Walid Khalfa. All rights reserved."
+                }
+            };
+
+            const cvData = {
+                fr: {
+                    title: "AI SEARCH SPECIALIST — NLP • INFORMATION RETRIEVAL • SEMANTIC MODELING • GENERATIVE AI",
+                    profile_title: "Profil",
+                    profile_content: "AI Search Specialist axé sur la récupération consciente de l'intention, la recherche sémantique et l'UX pilotée par le NLP. Je fais le lien entre la réflexion UX, l'ingénierie MERN et l'automatisation ML/QA pour livrer des systèmes de recherche fiables et centrés sur l'humain.",
+                    highlights_title: "Réalisations Clés",
+                    highlights: "• Livré des flux de génération de contenu sémantique (n8n + Deepseek R1) dans une plateforme éducative; réduction de 35% de la création manuelle.\n• Standardisé les contrats API (Joi/Swagger) et les portes de qualité CI/CD pour améliorer la fiabilité de la recherche et la confiance des releases.\n• Amélioré la pertinence IR et la latence via récupération hybride BM25 + dense et réglage ANN; surveillé nDCG/MRR et latence p95.",
+                    skills_title: "Expertise Principale",
+                    skills_core: "NLP, Semantic Search, Information Retrieval, Ranking Algorithms, Retrieval QA, Vector Search, Embeddings, Knowledge Graphs, Generative AI, Prompt/Agent Flows",
+                    skills_ecosystem: "Elasticsearch/BM25, OpenSearch, FAISS, Milvus, Pinecone, Transformers (HuggingFace), LangChain, LlamaIndex, RAG, Cross-Encoder/ColBERT",
+                    skills_retrieval: "ANN (HNSW), schema design, facets/filters, hybrid BM25 + dense, metrics: precision/recall, nDCG@k, MRR",
+                    skills_tech: "MERN (MongoDB, Express, React, Node), REST/JSON, JWT; CI/CD (GitHub Actions, Jenkins), Docker, Linux; telemetry/observability",
+                    experience_title: "Expériences Professionnelles",
+                    exp1_title: "QA Analyst Intern — RefOps Solutions (Août 2025 – Présent)",
+                    exp1_desc: "• Conception de suites de tests pour la récupération IA et la validation d'intention à travers les domaines business/data/IT.\n• Alignement du comportement de recherche sur les critères d'acceptation avec un focus sur la prévention des défauts.\n• Enrichissement des signaux de qualité CI/CD pour les changements cloud/sécurité/IA.\n• Suivi des métriques nDCG/MRR et de la latence.",
+                    exp2_title: "QA Tester (PIGIST Project) — Webchallenge (Mars 2025 – Août 2025)",
+                    exp2_desc: "• Tests fonctionnels et orientés récupération pour une marketplace de freelances.\n• Optimisation du triage des défauts UX.\n• Améliorations sémantiques pré-lancement pour le contenu et la navigation.",
+                    exp3_title: "Full-Stack Developer & QA — GOMYCODE (Août 2024 – Mars 2025)",
+                    exp3_desc: "• Co-développement de GoMyTeacher (MERN) avec flux de génération de contenu sémantique.\n• Réduction de 35% de l'effort manuel de production.\n• Tests E2E cross-browser (Jest/Selenium) et automatisation CI/CD.\n• Validation d'API (Joi/Swagger) et gouvernance de schéma JSON.",
+                    exp4_title: "Full-Stack Junior Developer & QA — Perfect Purity (Sep 2023 – Août 2024)",
+                    exp4_desc: "• APIs REST et UIs React/Redux avec JWT.\n• Protection de routes sécurisées.\n• Pipelines Jenkins/Actions.\n• Réduction de 50% des problèmes de production via les tests automatisés.",
+                    exp5_title: "Application Support Engineer — Teleperformance Tunisia (Nov 2012 – Juin 2023)",
+                    exp5_desc: "• Résolution de 98% des incidents au premier contact (200+ clients/mois).\n• Augmentation de 25% de la satisfaction.\n• Automatisations Python pour les rapports/analyse de logs.\n• Fondations pour les diagnostics de recherche.",
+                    projects_title: "Projets Sélectionnés",
+                    proj1: "GoMyTeacher — AI Education Platform: Plateforme éducative avec génération de contenu sémantique utilisant n8n + Deepseek R1, réduisant l'effort manuel de 35%.",
+                    proj2: "IBM AI Capstone — Revenue Forecasting API: API de prévision de revenus basée sur séries temporelles avec modélisation ML et exposition REST pour dashboards.",
+                    proj3: "Easy Dashboard (MERN CRM): CRM avec visualisation de données et système de récupération optimisé pour des décisions plus rapides.",
+                    publications_title: "Publications & Communauté",
+                    publications: "• \"Designing Intent-Aware Search Systems\" — whitepaper interne sur la modélisation sémantique (2024).\n• Articles: NLP, vector search, et récupération générative.\n• Workshops sur l'évaluation (precision/recall, MRR, nDCG) et modèles vectoriels.\n• Open-source: frameworks QA Selenium et utilitaires de benchmarking de récupération.",
+                    certs_title: "Certifications Principales",
+                    certs: "• Oracle OCA Java SE 5/6\n• ISTQB Foundation\n• Microsoft Azure (AZ-900, AI-900, DP-900, SC-900)\n• Google Data Analytics\n• Six Sigma Yellow Belt\n• Meta Back-End Developer",
+                    langs_title: "Langues",
+                    langs: "Arabe (Natif), Français (Professionnel), Anglais (Professionnel)"
+                },
+                en: {
+                    title: "AI SEARCH SPECIALIST — NLP • INFORMATION RETRIEVAL • SEMANTIC MODELING • GENERATIVE AI",
+                    profile_title: "Profile",
+                    profile_content: "AI Search Specialist focused on intent-aware retrieval, semantic search, and NLP-driven UX. I bridge UX thinking, MERN engineering, and ML/QA automation to ship reliable, human-centered search systems.",
+                    highlights_title: "Selected Highlights",
+                    highlights: "• Shipped semantic content generation flows (n8n + Deepseek R1) in an education platform; reduced manual authoring by 35%.\n• Standardized API contracts (Joi/Swagger) and CI/CD quality gates to improve search reliability and release confidence.\n• Improved IR relevance and latency via hybrid BM25 + dense retrieval and ANN tuning; monitored nDCG/MRR and p95 latency.",
+                    skills_title: "Core Expertise",
+                    skills_core: "NLP, Semantic Search, Information Retrieval, Ranking Algorithms, Retrieval QA, Vector Search, Embeddings, Knowledge Graphs, Generative AI, Prompt/Agent Flows",
+                    skills_ecosystem: "Elasticsearch/BM25, OpenSearch, FAISS, Milvus, Pinecone, Transformers (HuggingFace), LangChain, LlamaIndex, RAG, Cross-Encoder/ColBERT",
+                    skills_retrieval: "ANN (HNSW), schema design, facets/filters, hybrid BM25 + dense, metrics: precision/recall, nDCG@k, MRR",
+                    skills_tech: "MERN (MongoDB, Express, React, Node), REST/JSON, JWT; CI/CD (GitHub Actions, Jenkins), Docker, Linux; telemetry/observability",
+                    experience_title: "Work Experience",
+                    exp1_title: "QA Analyst Intern — RefOps Solutions (Aug 2025 – Present)",
+                    exp1_desc: "• Designed test suites for AI-enabled retrieval and intent validation across business/data/IT.\n• Aligned search behavior with acceptance criteria; defect prevention focus.\n• Enriched CI/CD quality signals for cloud/security/AI changes.\n• Tracked nDCG/MRR and latency metrics.",
+                    exp2_title: "QA Tester (PIGIST Project) — Webchallenge (Mar 2025 – Aug 2025)",
+                    exp2_desc: "• Functional and retrieval-oriented testing for a freelance marketplace.\n• Streamlined UX defect triage.\n• Pre-launch semantic improvements for content and navigation.",
+                    exp3_title: "Full-Stack Developer & QA — GOMYCODE (Aug 2024 – Mar 2025)",
+                    exp3_desc: "• Co-built GoMyTeacher (MERN) with semantic content generation flows.\n• Reduced manual authoring by 35%.\n• Cross-browser E2E testing (Jest/Selenium) and CI/CD automation.\n• API validation (Joi/Swagger) and JSON schema governance.",
+                    exp4_title: "Full-Stack Junior Developer & QA — Perfect Purity (Sep 2023 – Aug 2024)",
+                    exp4_desc: "• REST APIs and React/Redux UIs with JWT.\n• Secure route protection.\n• Jenkins/Actions pipelines.\n• -50% production issues via automated tests.",
+                    exp5_title: "Application Support Engineer — Teleperformance Tunisia (Nov 2012 – Jun 2023)",
+                    exp5_desc: "• Resolved 98% incidents at first contact (200+ clients/mo).\n• +25% satisfaction.\n• Python automations for reporting/log parsing.\n• Foundations for search diagnostics.",
+                    projects_title: "Selected Projects",
+                    proj1: "GoMyTeacher — AI Education Platform: Educational platform with semantic content generation using n8n + Deepseek R1, reducing manual effort by 35%.",
+                    proj2: "IBM AI Capstone — Revenue Forecasting API: Revenue forecasting API based on time series with ML modeling and REST exposure for dashboards.",
+                    proj3: "Easy Dashboard (MERN CRM): CRM with data visualization and optimized retrieval system for faster decision-making.",
+                    publications_title: "Publications & Community",
+                    publications: "• \"Designing Intent-Aware Search Systems\" — internal whitepaper on semantic modeling (2024).\n• Articles: NLP, vector search, and generative retrieval.\n• Workshops on evaluation (precision/recall, MRR, nDCG) and vector-based models.\n• Open-source: Selenium QA frameworks and retrieval benchmarking utilities.",
+                    certs_title: "Key Certifications",
+                    certs: "• Oracle OCA Java SE 5/6\n• ISTQB Foundation\n• Microsoft Azure (AZ-900, AI-900, DP-900, SC-900)\n• Google Data Analytics\n• Six Sigma Yellow Belt\n• Meta Back-End Developer",
+                    langs_title: "Languages",
+                    langs: "Arabic (Native), French (Full Professional), English (Professional)"
+                }
+            };
+            
+            // --- LANGUAGE SWITCHER LOGIC ---
+            const langSwitcher = document.getElementById('lang-switcher');
+            const langMenu = document.getElementById('lang-menu');
+            const currentLangFlag = document.getElementById('current-lang-flag');
+            const langOptions = document.querySelectorAll('.lang-option');
+            const htmlEl = document.documentElement;
+
+            langSwitcher.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', () => {
+                langMenu.classList.add('hidden');
+            });
+
+            const setLanguage = (lang) => {
+                const langData = translations[lang];
+                if (!langData) return;
+
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    const key = el.getAttribute('data-lang');
+                    if (langData[key]) {
+                         if (key.startsWith('exp') && key.endsWith('_desc')) {
+                             el.innerHTML = langData[key];
+                        } else if (key === 'footer_text') {
+                             el.textContent = langData[key];
+                        }
+                        else {
+                             el.textContent = langData[key];
+                        }
+                    }
+                });
+                
+                htmlEl.setAttribute('lang', lang);
+                htmlEl.setAttribute('dir', 'ltr'); // Always LTR now
+
+                let flagSrc = '';
+                if (lang === 'fr') flagSrc = 'https://flagcdn.com/w20/fr.png';
+                if (lang === 'en') flagSrc = 'https://flagcdn.com/w20/gb.png';
+                currentLangFlag.src = flagSrc;
+
+                localStorage.setItem('language', lang);
+                langMenu.classList.add('hidden');
+            };
+
+            langOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const langId = option.getAttribute('data-lang-id');
+                    setLanguage(langId);
+                });
+            });
+
+            // Set initial language from localStorage or default to 'fr'
+            const savedLang = localStorage.getItem('language') || 'fr';
+            setLanguage(savedLang);
+
+            // --- THEME TOGGLE ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlEl.classList.add('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                const isDark = htmlEl.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                themeIcon.classList.toggle('fa-sun', !isDark);
+                themeIcon.classList.toggle('fa-moon', isDark);
+            });
+
+            // --- FADE-IN SECTIONS ON SCROLL ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            // --- GEMINI API INTEGRATION ---
+            const callGeminiAPI = async (prompt) => {
+                const apiKey = ""; // API key is handled by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: [{ "text": prompt }]
+                    }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        throw new Error("Invalid response structure from API");
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    return null;
+                }
+            };
+
+            // Improve message with AI
+            const improveMessageBtn = document.getElementById('improve-message-btn');
+            const messageTextarea = document.getElementById('message');
+            const messageLoader = document.getElementById('message-loader');
+
+            improveMessageBtn.addEventListener('click', async () => {
+                const originalMessage = messageTextarea.value;
+                if (!originalMessage.trim()) return;
+
+                messageLoader.classList.remove('hidden');
+                improveMessageBtn.disabled = true;
+
+                const prompt = `En tant qu'assistant de rédaction, reformule le message suivant pour qu'il soit plus professionnel, clair et concis, tout en restant cordial. Ne rajoute pas de salutations ou de signature, concentre-toi uniquement sur le corps du message. Voici le message original : \n\n'${originalMessage}'`;
+                
+                const improvedMessage = await callGeminiAPI(prompt);
+
+                if (improvedMessage) {
+                    messageTextarea.value = improvedMessage;
+                }
+
+                messageLoader.classList.add('hidden');
+                improveMessageBtn.disabled = false;
+            });
+
+            // Generate creative bio with AI
+            const generateBioBtn = document.getElementById('generate-bio-btn');
+            const aboutText = document.getElementById('about-text');
+            const bioLoader = document.getElementById('bio-loader');
+
+            generateBioBtn.addEventListener('click', async () => {
+                const originalBio = aboutText.textContent;
+                
+                bioLoader.classList.remove('hidden');
+                generateBioBtn.disabled = true;
+
+                const prompt = `En tant que coach de carrière créatif, réécris ce résumé de profil pour le rendre plus percutant et engageant pour un recruteur. Mets en avant l'expertise en recherche IA et la passion pour la qualité. Voici le profil original : \n\n'${originalBio}'`;
+
+                const creativeBio = await callGeminiAPI(prompt);
+
+                if (creativeBio) {
+                    aboutText.textContent = creativeBio;
+                }
+
+                bioLoader.classList.add('hidden');
+                generateBioBtn.disabled = false;
+            });
+
+            // --- CV DOWNLOAD ---
+            const downloadCvBtn = document.getElementById('download-cv-btn');
+            downloadCvBtn.addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'pt', 'a4');
+                const margin = 40;
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+                const usableWidth = pageWidth - margin * 2;
+                let y = margin;
+                const accentColor = '#14b8a6';
+
+                const currentLang = localStorage.getItem('language') || 'fr';
+                const cv = cvData[currentLang];
+                
+                const addText = (text, options = {}) => {
+                    const { size = 10, font = 'helvetica', style = 'normal', color = '#000000', spaceAfter = 12, isTitle = false } = options;
+                    if (y + size > pageHeight - margin) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.setFont(font, style);
+                    doc.setFontSize(size);
+                    doc.setTextColor(color);
+                    const splitText = doc.splitTextToSize(text, usableWidth);
+                    doc.text(splitText, margin, y);
+                    y += (doc.getTextDimensions(splitText).h) + spaceAfter;
+                    if (isTitle) {
+                        doc.setDrawColor(accentColor);
+                        doc.setLineWidth(1.5);
+                        doc.line(margin, y - spaceAfter + 2, pageWidth - margin, y - spaceAfter + 2);
+                    }
+                };
+
+                // --- CV CONTENT ---
+                addText('Walid Khalfa', { size: 24, style: 'bold', color: '#1f2937', spaceAfter: 8 });
+                addText(cv.title, { size: 12, color: accentColor, spaceAfter: 4 });
+                addText('khelfawalid@gmail.com | linkedin.com/in/walid-khalfa-41821513 | github.com/Walid-Khalfa | walid-khalfa.github.io/walid-khalfa-portfolio', { size: 9, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.profile_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.profile_content, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.highlights_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.highlights, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.skills_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.skills_core, { size: 10, color: '#4b5563', spaceAfter: 8 });
+                addText(cv.skills_ecosystem, { size: 10, color: '#4b5563', spaceAfter: 8 });
+                addText(cv.skills_retrieval, { size: 10, color: '#4b5563', spaceAfter: 8 });
+                addText(cv.skills_tech, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.experience_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.exp1_title, { size: 11, style: 'bold', color: '#1f2937', spaceAfter: 4 });
+                addText(cv.exp1_desc, { size: 10, color: '#4b5563', spaceAfter: 15 });
+                addText(cv.exp2_title, { size: 11, style: 'bold', color: '#1f2937', spaceAfter: 4 });
+                addText(cv.exp2_desc, { size: 10, color: '#4b5563', spaceAfter: 15 });
+                addText(cv.exp3_title, { size: 11, style: 'bold', color: '#1f2937', spaceAfter: 4 });
+                addText(cv.exp3_desc, { size: 10, color: '#4b5563', spaceAfter: 15 });
+                addText(cv.exp4_title, { size: 11, style: 'bold', color: '#1f2937', spaceAfter: 4 });
+                addText(cv.exp4_desc, { size: 10, color: '#4b5563', spaceAfter: 15 });
+                addText(cv.exp5_title, { size: 11, style: 'bold', color: '#1f2937', spaceAfter: 4 });
+                addText(cv.exp5_desc, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.projects_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(`• ${cv.proj1}`, { size: 10, color: '#4b5563', spaceAfter: 8 });
+                addText(`• ${cv.proj2}`, { size: 10, color: '#4b5563', spaceAfter: 8 });
+                addText(`• ${cv.proj3}`, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.publications_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.publications, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.certs_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.certs, { size: 10, color: '#4b5563', spaceAfter: 20 });
+
+                addText(cv.langs_title, { size: 14, style: 'bold', color: '#1f2937', spaceAfter: 10, isTitle: true });
+                addText(cv.langs, { size: 10, color: '#4b5563', spaceAfter: 20 });
+                
+                doc.save('Walid_Khalfa_CV.pdf');
+            });
+
+        });
+    </script>
+</body>
+</html>
+
